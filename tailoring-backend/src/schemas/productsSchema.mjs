@@ -54,4 +54,43 @@ const productSchema = {
   },
 };
 
-export default productSchema;
+const fetchingProductsByQueryParams = {
+  // filter: {
+  //   notEmpty: {
+  //     errorMessage: "filter must not be empty",
+  //   },
+  //   isLength: {
+  //     options: { min: 4 },
+  //     errorMessage: "filter must be atlest 4 characters.",
+  //   },
+  //   isString: {
+  //     errorMessage: "filter must be a string",
+  //   },
+  // },
+  name: {
+    notEmpty: {
+      errorMessage: "Name must not be empty",
+    },
+    isLength: {
+      options: { min: 4 },
+      errorMessage: "Name must be atlest 4 characters.",
+    },
+    isString: {
+      errorMessage: "Name must be a string",
+    },
+  },
+  value: {
+    notEmpty: {
+      errorMessage: "value field must not be empty",
+    },
+    isLength: {
+      options: { min: 1 },
+      errorMessage: "value field must be between 5 and 12 characters",
+    },
+    isString: {
+      errorMessage: "value field must be a string",
+    },
+  },
+};
+
+export { productSchema, fetchingProductsByQueryParams };

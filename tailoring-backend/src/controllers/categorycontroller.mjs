@@ -45,3 +45,13 @@ export const updatecategory = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+export const deleteCategory = async (req, res) => {
+  const id = parseInt(req.params.id);
+
+  const deletedProduct = await prisma.category.delete({
+    where: { id },
+  });
+
+  res.sendStatus(200);
+};

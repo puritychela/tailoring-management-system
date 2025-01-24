@@ -1,16 +1,17 @@
 import { Box, Grid, GridItem, Show } from "@chakra-ui/react";
-import Navbar from "./Layout/NavBar";
-import Sidebar from "./Layout/SideBar";
-import { Category } from "./hooks/useCategory";
-import ProductsGrid from "./products/ProductsGrid";
+import Navbar from "./shared/Layout/NavBar";
+import Sidebar from "./shared/Layout/SideBar";
+import { Category } from "./shared/hooks/useCategory";
 import { useState } from "react";
+import ProductsGrid from "./web/products/ProductsGrid";
+// import ProductsGrid from "./AdminPannel/products/ProductsGrid";
+// import CategoryPage from "./AdminPannel/categories/CategoryPage";
 
 function App() {
   const [selectedCategory, setSelectedCategoy] = useState<Category | null>(
     null
   );
-
-  console.log(selectedCategory);
+  const [searchProduct, setSearchedProduct] = useState<string | null>(null);
 
   return (
     <Grid
@@ -24,7 +25,7 @@ function App() {
       }}
     >
       <GridItem area="nav" marginBottom="60px">
-        <Navbar />
+        <Navbar onSearch={(ProductName) => setSearchedProduct(ProductName)} />
       </GridItem>
       <Show above="md">
         <GridItem area="aside">
@@ -35,7 +36,11 @@ function App() {
       </Show>
       <GridItem area="main">
         <Box paddingLeft={3}>
-          <ProductsGrid selectedCategory={selectedCategory} />
+          {/* <CategoryPage /> */}
+          <ProductsGrid
+            selectedCategory={selectedCategory}
+            searchProduct={searchProduct}
+          />
         </Box>
       </GridItem>
     </Grid>

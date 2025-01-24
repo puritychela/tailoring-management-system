@@ -12,11 +12,12 @@ categoryRouter
   .post(checkSchema(categorySchema), categoryController.createCategory);
 
 categoryRouter
-  .route("/category/:id")
+  .route("/categories/:id")
   .put(
     checkSchema(categorySchema),
     categoryMiddleware,
     categoryController.updatecategory
-  );
+  )
+  .delete(categoryController.deleteCategory);
 
 export default categoryRouter;

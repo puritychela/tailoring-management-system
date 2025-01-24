@@ -25,7 +25,7 @@ export const createUser = async (req, res) => {
         username,
         password: hashedPassword,
         email,
-        isAdmin: false,
+        isAdmin: true,
         phone,
         address,
         gender,

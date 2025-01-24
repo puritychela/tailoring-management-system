@@ -1,6 +1,11 @@
 import { HStack } from "@chakra-ui/react";
+import SearchInput from "../components/SearchInput";
 
-const Navbar = () => {
+interface Props {
+  onSearch: (searchText: string) => void;
+}
+
+const Navbar = ({ onSearch }: Props) => {
   return (
     <HStack
       padding="10px"
@@ -15,6 +20,8 @@ const Navbar = () => {
       <a className="nav-link me-auto" href="/">
         Home
       </a>
+
+      <SearchInput onSearch={onSearch} />
 
       <button
         className="navbar-toggler"

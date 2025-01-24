@@ -1,16 +1,20 @@
 import { SimpleGrid, Text } from "@chakra-ui/react";
 import ProductsCardContainer from "./ProductsCardContainer";
-import useProduct from "../hooks/useProduct";
 import ProductsCardSkeleton from "./ProductsCardSkeleton";
 import ProductsCard from "./ProductsCard";
-import { Category } from "../hooks/useCategory";
+import { Category } from "../../shared/hooks/useCategory";
+import useProducts from "../../shared/hooks/useProduct";
 
 interface Prop {
+  searchProduct: string | null;
   selectedCategory: Category | null;
 }
 
-const ProductsGrid = ({ selectedCategory }: Prop) => {
-  const { products, error, isLoading } = useProduct(selectedCategory);
+const ProductsGrid = ({ searchProduct, selectedCategory }: Prop) => {
+  const { data, error, isLoading } = useProducts(
+    searchProduct,
+    selectedCategory
+  );
 
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -24,7 +28,12 @@ const ProductsGrid = ({ selectedCategory }: Prop) => {
             <ProductsCardSkeleton />
           </ProductsCardContainer>
         ))}
-      {products.map((product) => (
+      {data.length === 0 && (
+        <Text fontSize="xl" color="red">
+          No products on category {selectedCategory?.name}{" "}
+        </Text>
+      )}
+      {data.map((product) => (
         <ProductsCardContainer key={product.id}>
           <ProductsCard product={product} />
         </ProductsCardContainer>

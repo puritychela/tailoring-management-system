@@ -6,7 +6,7 @@ interface Prop {
 }
 
 const Sidebar = ({ onSelectCategory }: Prop) => {
-  const { categories, isLoading } = useCategories();
+  const { data, isLoading } = useCategories();
 
   return (
     <>
@@ -16,7 +16,7 @@ const Sidebar = ({ onSelectCategory }: Prop) => {
         </Heading>
         {isLoading && <Spinner />}
 
-        {categories.map((category) => (
+        {data.map((category) => (
           <ListItem key={category.id} paddingY="8px">
             <Button
               textAlign="left"
