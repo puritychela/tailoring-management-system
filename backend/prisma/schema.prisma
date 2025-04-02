@@ -1,0 +1,117 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  price       Float
+  description String?
+  image       String?  // URL to product image
+  gender      String   // "Men", "Women", "Children", "Unisex"
+  categoryId  Int
+  category    Category @relation(fields: [categoryId], references: [id])
+  product     CartItem[]
+}
+
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String
+  products Product[]
+}
+
+model User {
+    id           Int            @id @default(autoincrement()) 
+    username     String         @unique
+    password     String
+    email        String         @unique
+    isAdmin      Boolean
+    phone        String
+    address      String
+    gender       String
+    shirts       Shirt[]
+    dresses      Dress[]
+    trousers     Trouser[]
+    skirts       Skirt[]
+    cart         Cart[]
+}
+
+ model Shirt {
+    id           Int            @id @default(autoincrement())
+    waist        Int
+    sleeve_length Int
+    collar       Int
+    chest        Int
+    front_length Int
+    description  String
+    userId       Int            
+    user         User           @relation(fields: [userId], references: [id]) 
+  }
+
+
+model  Dress   {
+    id             Int           @id @default(autoincrement())
+    hips           Int
+    waist          Int
+    bust           Int
+    full_length    Int
+    shoulder       Int
+    sleeve_length  Int
+    description    String
+    userId       Int            
+    user           User        @relation(fields:[userId], references:[id])
+  }
+
+model  Skirt  {
+    id             Int           @id @default(autoincrement())
+    waist         Int
+    hips          Int
+    skirt_length  Int
+    description   String
+    userId        Int
+    user          User        @relation(fields:[userId], references:[id])
+  }
+
+
+  model Trouser  {
+    id            Int           @id @default(autoincrement())
+    waist         Int
+    hips          Int
+    thigh         Int
+    Kneel         Int
+    leg_opening   Int
+    height        Int
+    description   String
+    userId       Int
+    user          User        @relation(fields:[userId], references:[id])
+  }
+
+
+model Cart {
+  id      Int       @id @default(autoincrement())
+  userId  Int       @unique
+  user    User      @relation(fields: [userId], references: [id])
+  items   CartItem[]
+}
+
+model CartItem {
+  id        Int     @id @default(autoincrement())
+  cartId    Int
+  cart      Cart    @relation(fields: [cartId], references: [id])
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+}
