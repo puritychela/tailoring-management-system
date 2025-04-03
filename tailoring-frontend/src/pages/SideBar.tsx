@@ -1,5 +1,5 @@
 import { Button, Heading, List, ListItem, Spinner } from "@chakra-ui/react";
-import useCategories, { Category } from "../shared/hooks/useCategory";
+import useCategories, { Category } from "../hooks/useCategory";
 
 interface Prop {
   onSelectCategory: (category: Category) => void;

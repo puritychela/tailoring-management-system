@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
-import useCategories from "../../shared/hooks/useCategory";
+import useCategories from "../../hooks/useCategory";
 import "../popup.css";
 
 const schema = z.object({

@@ -11,8 +11,8 @@ dressesRouter
   .get(authMiddleware, dressController.getAllDresses)
   .post(authMiddleware, checkSchema(dressSchema), dressController.createDress);
 
-// dressesRouter
-//   .route("/dresses/:id")
-//   .delete(dressMiddleware, authMiddleware, dressController.deleteDressController);
+dressesRouter
+  .route("/dresses/:id")
+  .delete(dressMiddleware, authMiddleware, dressController.deleteDress);
 
 export default dressesRouter;

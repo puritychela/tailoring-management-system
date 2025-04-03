@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Product } from "../../shared/hooks/useProduct";
+import { Product } from "../../hooks/useProduct";
 import UpdateProduct from "./UpdateProduct";
-import useCategories from "../../shared/hooks/useCategory";
+import useCategories from "../../hooks/useCategory";
 
 interface Props {
   onSave: (updatedProduct: Product) => void;

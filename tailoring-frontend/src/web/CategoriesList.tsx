@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import useCategories, { Category } from "../shared/hooks/useCategory";
+import useCategories, { Category } from "../hooks/useCategory";
 
 interface Props {
   onSelectCategory: (category: Category | null) => void;

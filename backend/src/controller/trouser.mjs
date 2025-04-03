@@ -44,10 +44,17 @@ export const createTrouser = async (req, res) => {
   }
 };
 
-// export const deleteTrousersController = (req, res) => {
-//   const Id = req.trouserId;
-//   const findTrouser = Trousers.find((Trouser) => Trouser.id === Id);
-//   if (findTrouser) {
-//     res.send(Trousers.filter((Trouser) => Trouser !== findTrouser));
-//   }
-// };
+export const deleteTrouser = async (req, res) => {
+  const { id } = req.params; // Extract shirt ID from request parameters
+
+  try {
+    const trouser = await prisma.trouser.delete({
+      where: { id: parseInt(id) }, // Ensure ID is an integer
+    });
+
+    res.status(200).json({ message: "trouser deleted successfully", trouser });
+  } catch (error) {
+    console.error("Error deleting trouser:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};

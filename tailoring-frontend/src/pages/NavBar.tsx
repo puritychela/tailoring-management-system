@@ -1,13 +1,14 @@
-import { HStack, Box, Spacer } from "@chakra-ui/react";
+import { HStack, Box } from "@chakra-ui/react";
 import SearchInput from "../shared/components/SearchInput";
 import { NavLink } from "react-router-dom";
-import { TiShoppingCart } from "react-icons/ti";
+import { useContext } from "react";
+import CartContext from "../context/CartContext";
+import { MdOutlineShoppingCart } from "react-icons/md";
+const Navbar = () => {
+  const isAdmin = localStorage.getItem("isAdmin");
+  const Token = localStorage.getItem("token");
+  const { carts } = useContext(CartContext);
 
-interface Props {
-  onSearch: (searchText: string) => void;
-}
-
-const Navbar = ({ onSearch }: Props) => {
   return (
     <HStack
       padding="10px"
@@ -19,66 +20,36 @@ const Navbar = ({ onSearch }: Props) => {
         zIndex: 1030,
       }}
       width="100%"
-      // justifyContent="space-around"
+      justifyContent="space-between"
     >
       <NavLink className="nav-link" to="/">
         Home
       </NavLink>
 
-      <Box flexGrow={1}>
-        <SearchInput onSearch={onSearch} />
+      <Box>
+        <SearchInput />
       </Box>
 
       <NavLink to="/cart">
-        <TiShoppingCart size="1.5em" />
+        <div className="row position-relative">
+          <MdOutlineShoppingCart size="1.5em" />
+          {carts.length > 0 && (
+            <span
+              className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+              style={{ fontSize: "0.8rem", padding: "4px 8px" }}
+            >
+              {carts.length}
+            </span>
+          )}
+        </div>
       </NavLink>
 
-      <div>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div
-          className="collapse navbar-collapse justify-content-end"
-          id="navbarNav"
-        >
-          <ul className="mt-3 nav-item dropdown">
-            <a
-              className="nav-link dropdown-toggle"
-              id="navbarDropdown"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Account
-            </a>
-            <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li>
-                <NavLink className="nav-link" to="/profile">
-                  Profile
-                </NavLink>
-              </li>
-              <li>
-                <NavLink className="nav-link" to="/login">
-                  Login
-                </NavLink>
-              </li>
-              <li>
-                <NavLink className="nav-link" to="/register">
-                  SignUp
-                </NavLink>
-              </li>
-            </ul>
-          </ul>
-        </div>
-      </div>
+      {isAdmin == "true" && <NavLink to="/admin">Admin</NavLink>}
+      {Token ? (
+        <NavLink to="/logout">Logout</NavLink>
+      ) : (
+        <NavLink to="/login">Login</NavLink>
+      )}
     </HStack>
   );
 };

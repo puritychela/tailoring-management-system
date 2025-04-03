@@ -3,29 +3,25 @@ import { Input, HStack, Button } from "@chakra-ui/react";
 import authService, { Login } from "../../shared/services/authService";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 function LoginComponent() {
   const { register, handleSubmit } = useForm<Login>();
   const navigate = useNavigate();
+  const { login } = useAuth();
+
   const onSubmit = (data: Login) => {
     authService
       .login({ ...data })
       .then((res) => {
         const { user, token } = res.data;
-
-        // Store in local storage
-        localStorage.setItem("user", JSON.stringify(user)); // Store user object as string
-        localStorage.setItem("userId", user.id); // Store user ID
-        localStorage.setItem("token", token); // Store token
-        alert(`login successful ${res.status}`);
-        if (user.isAdmin) return navigate("/admin");
-        return navigate("/");
-        // console.log(res);
+        login(user, token); // Store user in context
+        navigate("/");
+        window.location.reload();
       })
       .catch((err) => {
-        alert(`Invalid credentials:${err.message}`);
+        alert(`Invalid credentials: ${err.message}`);
       });
-    // console.log({ ...data });
   };
 
   return (

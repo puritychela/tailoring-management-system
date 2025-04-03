@@ -8,11 +8,11 @@ import { authMiddleware } from "../middlewares/authmiddleware.mjs";
 const shirtRouter = Router();
 shirtRouter
   .route("/shirts")
-  .get(shirtController.getAllShirts)
+  .get(authMiddleware, shirtController.getAllShirts)
   .post(checkSchema(shirtSchema), authMiddleware, shirtController.createShirt);
 
-// shirtRouter
-//   .route("/shirts/:id")
-//   .delete(shirtMiddleware, shirtController.deleteShirtsController);
+shirtRouter
+  .route("/shirts/:id")
+  .delete(shirtMiddleware, shirtController.deleteShirt);
 
 export default shirtRouter;

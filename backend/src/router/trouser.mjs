@@ -14,8 +14,8 @@ trousersRouter
     trousercontroller.createTrouser
   );
 
-// trousersRouter
-//   .route("/trouser/:id")
-//   .delete(trouserMiddleware, trousercontroller.deleteTrousersController);
+trousersRouter
+  .route("/trousers/:id")
+  .delete(trouserMiddleware, trousercontroller.deleteTrouser);
 
 export default trousersRouter;

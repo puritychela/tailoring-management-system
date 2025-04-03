@@ -1,0 +1,11 @@
+
+C:\Users\Eliud Muriithi\test-tailoring
+├── backend
+├── project-structure.txt
+└── tailoring-frontend
+
+directory: 2 file: 1
+
+
+
+[2K[1G

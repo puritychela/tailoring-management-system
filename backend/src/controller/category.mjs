@@ -23,3 +23,20 @@ export const getAllCategories = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch categories" });
   }
 };
+
+export const deleteCategory = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deleteCategory = await prisma.category.delete({
+      where: { id: parseInt(id) }, // Ensure ID is an integer
+    });
+
+    res
+      .status(200)
+      .json({ message: "category deleted successfully", deleteCategory });
+  } catch (error) {
+    console.error("Error deleting category:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};

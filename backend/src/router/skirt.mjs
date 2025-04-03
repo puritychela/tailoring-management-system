@@ -11,6 +11,8 @@ skirtRouter
   .get(skirtController.getAllSkirts)
   .post(checkSchema(skirtSchema), authMiddleware, skirtController.createSkirt);
 
-// skirtRouter.route("/skirts/:id").delete(skirtMiddleware, skirtController.deleteskirtsController);
+skirtRouter
+  .route("/skirts/:id")
+  .delete(skirtMiddleware, skirtController.deleteSkirt);
 
 export default skirtRouter;

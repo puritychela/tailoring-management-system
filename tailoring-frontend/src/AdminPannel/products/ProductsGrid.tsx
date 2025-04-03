@@ -1,22 +1,22 @@
 import { Spinner } from "@chakra-ui/react";
-import { Category } from "../../shared/hooks/useCategory";
-import useProducts, { Product } from "../../shared/hooks/useProduct";
+import { Category } from "../../hooks/useCategory";
+import useProducts, { Product } from "../../hooks/useProduct";
 import ProductList from "./ProductList";
 import CategoriesList from "../../web/CategoriesList";
 import { useState } from "react";
 import productService from "../../shared/services/product-service";
 import CreateProduct, { formData } from "./CreateProduct";
+import useSearch from "../../hooks/useSearch";
 
-interface Prop {
-  SearchedProduct: string | null;
-  selectedCategory: Category | null;
-}
 const ProductsGrid = () => {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null
   );
-  const { data, error, isLoading, setError, setData } =
-    useProducts(selectedCategory);
+  const { search } = useSearch();
+  const { data, error, isLoading, setError, setData } = useProducts(
+    search,
+    selectedCategory
+  );
   const [isAddPopupOpen, setIsAddPopupOpen] = useState(false);
 
   const onClose = () => {

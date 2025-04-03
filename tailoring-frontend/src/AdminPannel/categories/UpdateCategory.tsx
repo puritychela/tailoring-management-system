@@ -1,7 +1,7 @@
 import { Button, Input } from "@chakra-ui/react";
 import { ChangeEvent, FormEvent, useState } from "react";
 import "../popup.css";
-import { Category } from "../../shared/hooks/useCategory";
+import { Category } from "../../hooks/useCategory";
 
 interface Props {
   category: Category;

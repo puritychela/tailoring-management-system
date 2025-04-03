@@ -2,13 +2,12 @@ import { Grid, GridItem, Show, Box } from "@chakra-ui/react";
 import Sidebar from "./SideBar";
 import ProductsGrid from "../web/products/ProductsGrid";
 import { useState } from "react";
-import { Category } from "../shared/hooks/useCategory";
+import { Category } from "../hooks/useCategory";
 
 const HomePage = () => {
   const [selectedCategory, setSelectedCategoy] = useState<Category | null>(
     null
   );
-  const [searchProduct, setSearchedProduct] = useState<string | null>(null);
   return (
     <Grid
       templateAreas={{
@@ -29,10 +28,7 @@ const HomePage = () => {
       </Show>
       <GridItem area="main">
         <Box paddingLeft={3}>
-          <ProductsGrid
-            selectedCategory={selectedCategory}
-            searchProduct={searchProduct}
-          />
+          <ProductsGrid selectedCategory={selectedCategory} />
         </Box>
       </GridItem>
     </Grid>

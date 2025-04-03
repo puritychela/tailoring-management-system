@@ -6,11 +6,20 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import router from "./routes.tsx";
+import SearchProvider from "./providers/searchProvider.tsx";
+import AuthProvider from "./providers/AuthProvider.tsx";
+import CartProvider from "./providers/CartProvider.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ChakraProvider>
-      <RouterProvider router={router} />
+      <CartProvider>
+        <AuthProvider>
+          <SearchProvider>
+            <RouterProvider router={router} />
+          </SearchProvider>
+        </AuthProvider>
+      </CartProvider>
     </ChakraProvider>
   </React.StrictMode>
 );

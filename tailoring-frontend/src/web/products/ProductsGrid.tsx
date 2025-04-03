@@ -2,19 +2,19 @@ import { SimpleGrid, Text } from "@chakra-ui/react";
 import ProductsCardContainer from "./ProductsCardContainer";
 import ProductsCardSkeleton from "./ProductsCardSkeleton";
 import ProductsCard from "./ProductsCard";
-import { Category } from "../../shared/hooks/useCategory";
-import useProducts from "../../shared/hooks/useProduct";
+import { Category } from "../../hooks/useCategory";
+import useProducts from "../../hooks/useProduct";
+import useSearch from "../../hooks/useSearch";
 
 interface Prop {
-  searchProduct: string | null;
   selectedCategory: Category | null;
 }
 
-const ProductsGrid = ({ searchProduct, selectedCategory }: Prop) => {
-  const { data, error, isLoading } = useProducts(
-    searchProduct,
-    selectedCategory
-  );
+const ProductsGrid = ({ selectedCategory }: Prop) => {
+  const { search } = useSearch();
+  const { data, error, isLoading } = useProducts(search, selectedCategory);
+
+  // console.log(search);
 
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 

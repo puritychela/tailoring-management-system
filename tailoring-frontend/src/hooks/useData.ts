@@ -1,6 +1,6 @@
 import { AxiosRequestConfig, CanceledError } from "axios";
 import { useEffect, useState } from "react";
-import apiClient from "../services/apiClient";
+import apiClient from "../shared/services/apiClient";
 
 const useData = <T>(
   endpoint: string,

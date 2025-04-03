@@ -1,4 +1,4 @@
-const productSchema = {
+export const productSchema = {
   id: {
     notEmpty: {
       errorMessage: "id must not be empty",
@@ -54,7 +54,7 @@ const productSchema = {
   },
 };
 
-const fetchingProductsByQueryParams = {
+export const fetchingProductsByQueryParams = {
   name: {
     notEmpty: {
       errorMessage: "Name must not be empty",
@@ -80,5 +80,3 @@ const fetchingProductsByQueryParams = {
     },
   },
 };
-
-export { productSchema, fetchingProductsByQueryParams };

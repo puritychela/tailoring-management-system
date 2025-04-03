@@ -11,10 +11,7 @@ export interface Product {
   categoryId: number;
 }
 
-const useProducts = (
-  // searchedProduct: string | null,
-  selectedCategory: Category | null
-) =>
+const useProducts = (search: string, selectedCategory: Category | null) =>
   useData<Product>(
     `/products`,
     {
@@ -22,10 +19,10 @@ const useProducts = (
         ...(selectedCategory && {
           categoryId: selectedCategory?.id,
         }),
-        // ...(searchedProduct && { name: searchedProduct }),
+        ...(search && { name: search }),
       },
     },
-    [selectedCategory?.id]
+    [search, selectedCategory?.id]
   );
 
 export default useProducts;

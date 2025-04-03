@@ -25,7 +25,7 @@ export const createUser = async (req, res) => {
         username,
         password: hashedPassword,
         email,
-        isAdmin: true,
+        isAdmin: false,
         phone,
         address,
         gender,
@@ -56,5 +56,20 @@ export const loginUser = async (req, res) => {
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).json({ error: "An error occurred during login" });
+  }
+};
+
+export const deleteUser = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deleteUser = await prisma.user.delete({
+      where: { id: parseInt(id) }, // Ensure ID is an integer
+    });
+
+    res.status(200).json({ message: "user deleted successfully", deleteUser });
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };

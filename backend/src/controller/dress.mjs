@@ -42,3 +42,20 @@ export const createDress = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+export const deleteDress = async (req, res) => {
+  const { id } = req.params; // Extract shirt ID from request parameters
+
+  try {
+    const deleteDress = await prisma.dress.delete({
+      where: { id: parseInt(id) }, // Ensure ID is an integer
+    });
+
+    res
+      .status(200)
+      .json({ message: "Dress deleted successfully", deleteDress });
+  } catch (error) {
+    console.error("Error deleting Dress:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};

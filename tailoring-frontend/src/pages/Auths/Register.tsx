@@ -3,17 +3,19 @@ import "./register.css";
 import { Button, HStack, Input } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import authService, { registerUser } from "../../shared/services/authService";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const RegisterComponent = () => {
   const { register, handleSubmit } = useForm<registerUser>();
   const [gender, setSelectedGender] = useState("");
+  const navigate = useNavigate();
 
   const onSubmit = (data: registerUser) => {
     authService
       .registerUser({ ...data, gender })
       .then((res) => {
         alert(`regitered successful ${res.status}`);
+        navigate("/login");
       })
       .catch((err) => {
         alert(`Error registering:${err.message}`);

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useCategories, { Category } from "../../shared/hooks/useCategory";
+import useCategories, { Category } from "../../hooks/useCategory";
 import categoryService from "../../shared/services/category-service";
 import UpdateCategory from "./UpdateCategory";
 import CreateCategory, { formData } from "./CreateCategory";

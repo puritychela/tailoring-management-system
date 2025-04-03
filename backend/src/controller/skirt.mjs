@@ -32,10 +32,19 @@ export const createSkirt = async (req, res) => {
   }
 };
 
-// export const deleteskirtsController = (req, res) => {
-//   const Id = req.skirtId;
-//   const findskirt = skirts.find((skirt) => skirt.id === Id);
-//   if (findskirt) {
-//     res.send(skirts.filter((skirt) => skirt !== findskirt));
-//   }
-// };
+export const deleteSkirt = async (req, res) => {
+  const { id } = req.params; // Extract shirt ID from request parameters
+
+  try {
+    const deleteSkirt = await prisma.skirt.delete({
+      where: { id: parseInt(id) }, // Ensure ID is an integer
+    });
+
+    res
+      .status(200)
+      .json({ message: "Skirt deleted successfully", deleteSkirt });
+  } catch (error) {
+    console.error("Error deleting Skirt:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
