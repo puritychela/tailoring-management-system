@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
+import isTokenExpired from "../pages/Auths/isTokenExpired";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState(() => {
@@ -30,10 +31,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setIsAdmin(false);
   };
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token || isTokenExpired(token)) {
+      logout();
+    }
+  }, []);
   return (
-    <AuthContext.Provider value={{ user, isAdmin, login, logout }}>
-      {children}
-    </AuthContext.Provider>
+    <>
+      <AuthContext.Provider value={{ user, isAdmin, login, logout }}>
+        {children}
+      </AuthContext.Provider>
+    </>
   );
 };
 
