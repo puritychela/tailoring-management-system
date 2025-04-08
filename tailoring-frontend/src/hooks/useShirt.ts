@@ -1,17 +1,18 @@
 import useData from "./useData";
 
-interface Shirt {
+export interface shirt {
   id: number;
   sleeve_length: number;
   collar: number;
   chest: number;
+  waist: number;
   front_length: number;
-  description: String;
+  description: string;
   userId: number;
 }
 
 const useShirt = () =>
-  useData<Shirt>(`/shirts`, {
+  useData<shirt>(`/shirts`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },

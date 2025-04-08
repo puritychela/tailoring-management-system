@@ -41,7 +41,7 @@ const ProductsGrid = () => {
     const originalProducts = [...data];
 
     setData(data.map((p) => (p.id === formData.id ? formData : p)));
-
+    console.log(formData);
     productService
       .update(formData)
       .then((res) => alert(`updated successfully ${res.statusText}`))
@@ -54,6 +54,7 @@ const ProductsGrid = () => {
 
   const handleCreate = (CreatedProduct: formData) => {
     const originalProducts = [...data];
+    console.log(CreatedProduct);
     productService
       .create(CreatedProduct)
       .then((res) => setData([...data, res.data]))

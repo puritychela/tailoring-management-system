@@ -12,6 +12,28 @@ export const getAllSkirts = async (req, res) => {
   }
 };
 
+export const updateSkirt = async (req, res) => {
+  const { id } = req.params;
+  const { waist, hips, skirt_length, description, userId } = req.body;
+
+  try {
+    const product = await prisma.skirt.update({
+      where: { id: parseInt(id) },
+      data: {
+        waist,
+        hips,
+        skirt_length,
+        description,
+        userId,
+      },
+    });
+    res.status(200).json(product);
+  } catch (error) {
+    console.error("Error updating product:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 export const createSkirt = async (req, res) => {
   const { waist, hips, skirt_length, description, userId } = req.body;
 

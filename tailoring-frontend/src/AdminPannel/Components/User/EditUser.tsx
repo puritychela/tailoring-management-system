@@ -1,7 +1,7 @@
 import { Button, Input } from "@chakra-ui/react";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { Product } from "../../hooks/useProduct";
 import "../popup.css";
+import { Product } from "../../../hooks/useProduct";
 interface Props {
   product: Product;
   onClose: () => void;

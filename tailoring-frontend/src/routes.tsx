@@ -8,11 +8,11 @@ import ProductGrid from ".//AdminPannel/products/ProductsGrid";
 import Logout from "./pages/Auths/Logout";
 import DashBoard from "./AdminPannel/DashBoard/DashBoard";
 import CategoryPage from "./AdminPannel/categories/CategoryPage";
-import User from "./AdminPannel/Components/User";
-import Shirt from "./AdminPannel/Components/Shirt";
-import Skirt from "./AdminPannel/Components/Skirt";
-import TrouserComponent from "./AdminPannel/Components/TrouserComponent";
-import Dress from "./AdminPannel/Components/Dress";
+import Shirt from "./AdminPannel/Components/Shirt/Shirt";
+import TrouserComponent from "./AdminPannel/Components/Trouser/TrouserComponent";
+import Dress from "./AdminPannel/Components/Dress/Dress";
+import Skirt from "./AdminPannel/Components/Skirt/Skirt";
+import User from "./AdminPannel/Components/User/User";
 
 const router = createBrowserRouter([
   {

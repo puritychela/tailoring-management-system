@@ -3,7 +3,7 @@ import { NavLink, Outlet } from "react-router-dom";
 const DashBoard = () => {
   return (
     <>
-      <div className="row bg-info h-200">
+      <div className="row bg-info h-200 mb-5">
         <div className="col">
           <NavLink to="/admin">Products</NavLink>
         </div>

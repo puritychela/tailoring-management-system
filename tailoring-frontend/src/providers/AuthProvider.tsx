@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const login = (user: any, token: string) => {
     localStorage.setItem("token", token);
+    localStorage.setItem("userId", user.id);
     localStorage.setItem("isAdmin", user.isAdmin.toString());
 
     setUser(user);

@@ -1,4 +1,4 @@
-/* Popup.css */
+/* popup.css */
 .popup-overlay {
     position: fixed;
     top: 0;
@@ -8,6 +8,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeInOverlay 0.4s ease forwards;
 }
 
 .popup-content {
@@ -17,13 +20,41 @@
     position: relative;
     max-width: 500px;
     width: 100%;
+
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: fadeInPopup 0.4s ease forwards;
 }
 
-.close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
+.fade-out {
+    animation: fadeOutPopup 0.4s ease forwards;
+}
+
+@keyframes fadeInPopup {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOutPopup {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes fadeInOverlay {
+    from {
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+    to {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
 }

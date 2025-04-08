@@ -11,6 +11,40 @@ export const getAllDresses = async (req, res) => {
   }
 };
 
+export const updateDress = async (req, res) => {
+  const { id } = req.params;
+  const {
+    userId,
+    waist,
+    hips,
+    bust,
+    full_length,
+    shoulder,
+    sleeve_length,
+    description,
+  } = req.body;
+
+  try {
+    const dress = await prisma.dress.update({
+      where: { id: parseInt(id) },
+      data: {
+        userId,
+        waist,
+        hips,
+        bust,
+        full_length,
+        shoulder,
+        sleeve_length,
+        description,
+      },
+    });
+    res.status(200).json(dress);
+  } catch (error) {
+    console.error("Error updating dress:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 export const createDress = async (req, res) => {
   const {
     userId,
@@ -44,7 +78,7 @@ export const createDress = async (req, res) => {
 };
 
 export const deleteDress = async (req, res) => {
-  const { id } = req.params; // Extract shirt ID from request parameters
+  const { id } = req.params; // Extract dress ID from request parameters
 
   try {
     const deleteDress = await prisma.dress.delete({

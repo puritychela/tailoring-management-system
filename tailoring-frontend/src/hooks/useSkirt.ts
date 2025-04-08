@@ -1,16 +1,16 @@
 import useData from "./useData";
 
-interface Skirt {
+export interface skirt {
   id: number;
   waist: number;
   hips: number;
   skirt_length: number;
-  description: String;
+  description: string;
   userId: number;
 }
 
 const useSkirt = () =>
-  useData<Skirt>(`/skirts`, {
+  useData<skirt>(`/skirts`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`, // Attach token to request
     },

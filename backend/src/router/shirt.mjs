@@ -13,6 +13,7 @@ shirtRouter
 
 shirtRouter
   .route("/shirts/:id")
+  .put(authMiddleware, shirtController.updateShirt)
   .delete(shirtMiddleware, shirtController.deleteShirt);
 
 export default shirtRouter;

@@ -58,3 +58,37 @@ export const deleteTrouser = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+export const updateTrouser = async (req, res) => {
+  const { id } = req.params;
+  const {
+    waist,
+    hips,
+    thigh,
+    Kneel,
+    leg_opening,
+    height,
+    description,
+    userId,
+  } = req.body;
+
+  try {
+    const trouser = await prisma.trouser.update({
+      where: { id: parseInt(id) },
+      data: {
+        waist,
+        hips,
+        thigh,
+        Kneel,
+        leg_opening,
+        height,
+        description,
+        userId,
+      },
+    });
+    res.status(200).json(trouser);
+  } catch (error) {
+    console.error("Error updating trouser:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};

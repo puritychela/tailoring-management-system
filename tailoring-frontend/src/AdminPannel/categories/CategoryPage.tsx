@@ -74,9 +74,11 @@ const CategoryPage = () => {
       </button>
       <table className="table table-bordered">
         <thead>
-          <th>name</th>
-          <th>update Category</th>
-          <th>delete</th>
+          <tr>
+            <th>name</th>
+            <th>update Category</th>
+            <th>delete</th>
+          </tr>
         </thead>
         <tbody>
           {data.map((category) => (

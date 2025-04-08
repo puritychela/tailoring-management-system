@@ -1,5 +1,5 @@
 import useData from "./useData";
-interface Dress {
+export interface dress {
   id: number;
   hips: number;
   waist: number;
@@ -7,12 +7,12 @@ interface Dress {
   full_length: number;
   shoulder: number;
   sleeve_length: number;
-  description: String;
+  description: string;
   userId: number;
 }
 
 const useDress = () =>
-  useData<Dress>(`/dresses`, {
+  useData<dress>(`/dresses`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`, // Attach token to request
     },

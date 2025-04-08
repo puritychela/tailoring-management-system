@@ -1,16 +1,16 @@
 import { Button, Input } from "@chakra-ui/react";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { Product } from "../../hooks/useProduct";
-import "../popup.css";
+import "../../popup.css";
+import { Trouser } from "../../../hooks/useTrouser";
+
 interface Props {
-  product: Product;
+  trouser: Trouser;
   onClose: () => void;
-  onSave: (formData: Product) => void;
+  onSave: (formData: Trouser) => void;
 }
 
-const UpdateProduct = ({ product, onClose, onSave }: Props) => {
-  // const forms = useForm();
-  const [formData, setFormData] = useState<Product>(product);
+const EditTrouser = ({ trouser, onClose, onSave }: Props) => {
+  const [formData, setFormData] = useState<Trouser>(trouser);
   const [closing, setClosing] = useState(false);
 
   const handleClose = () => {
@@ -31,39 +31,39 @@ const UpdateProduct = ({ product, onClose, onSave }: Props) => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     onSave(formData);
-    onClose();
+    handleClose();
   };
 
   return (
     <div className="popup-overlay ">
       <div className={`popup-content ${closing ? "fade-out" : ""}`}>
         <form onSubmit={handleSubmit}>
-          <h2>update products</h2>
-          <div className="mb-3">
-            <label htmlFor="title" className="form-label">
-              Title
+          <h2>update Trouser</h2>
+          <div className="mb-1">
+            <label htmlFor="Kneel" className="form-label">
+              Kneel
             </label>
             <Input
-              id="name"
-              name="name"
-              value={formData.name}
+              id="Kneel"
+              name="Kneel"
+              value={formData.Kneel}
               onChange={handleChange}
               className="form-control"
             />
           </div>
-          <div className="mb-3">
-            <label htmlFor="image" className="form-label">
-              Image Url
+          <div className="mb-1">
+            <label htmlFor="height" className="form-label">
+              Height
             </label>
             <Input
-              id="image"
-              name="image"
-              value={formData.image}
+              id="height"
+              name="height"
+              value={formData.height}
               onChange={handleChange}
               className="form-control"
             />
           </div>
-          <div className="mb-3">
+          <div className="mb-1">
             <label htmlFor="description" className="form-label">
               Description
             </label>
@@ -75,26 +75,62 @@ const UpdateProduct = ({ product, onClose, onSave }: Props) => {
               className="form-control"
             />
           </div>
-          <div className="mb-3">
-            <label htmlFor="location" className="form-label">
-              Price
+          <div className="mb-1">
+            <label htmlFor="hips" className="form-label">
+              Hips
             </label>
             <Input
-              id="price"
-              name="price"
-              value={formData.price}
+              id="hips"
+              name="hips"
+              value={formData.hips}
               onChange={handleChange}
               className="form-control"
             />
           </div>
-          <div className="mb-3">
-            <label htmlFor="date" className="form-label">
-              Category Id
+          <div className="mb-1">
+            <label htmlFor="userId" className="form-label">
+              User
             </label>
             <Input
-              id="categoryId"
-              name="categoryId"
-              value={formData.categoryId}
+              id="userId"
+              name="userId"
+              value={formData.userId}
+              onChange={handleChange}
+              className="form-control"
+            />
+          </div>
+          <div className="mb-1">
+            <label htmlFor="waist" className="form-label">
+              Waist
+            </label>
+            <Input
+              id="waist"
+              name="waist"
+              value={formData.waist}
+              onChange={handleChange}
+              className="form-control"
+            />
+          </div>
+          <div className="mb-1">
+            <label htmlFor="thigh" className="form-label">
+              Thigh
+            </label>
+            <Input
+              id="thigh"
+              name="thigh"
+              value={formData.thigh}
+              onChange={handleChange}
+              className="form-control"
+            />
+          </div>
+          <div className="mb-1">
+            <label htmlFor="leg_opening" className="form-label">
+              Leg Opening
+            </label>
+            <Input
+              id="leg_opening"
+              name="leg_opening"
+              value={formData.leg_opening}
               onChange={handleChange}
               className="form-control"
             />
@@ -123,4 +159,4 @@ const UpdateProduct = ({ product, onClose, onSave }: Props) => {
   );
 };
 
-export default UpdateProduct;
+export default EditTrouser;

@@ -1,5 +1,5 @@
 import useData from "./useData";
-interface Trouser {
+export interface Trouser {
   id: number;
   waist: number;
   hips: number;
@@ -7,7 +7,7 @@ interface Trouser {
   Kneel: number;
   leg_opening: number;
   height: number;
-  description: String;
+  description: string;
   userId: number;
 }
 

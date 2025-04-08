@@ -2,21 +2,18 @@ import { Button } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
-import useCategories from "../../hooks/useCategory";
-import "../popup.css";
+import "../../popup.css";
+import useUsers from "../../../hooks/useUsers";
 import { useState } from "react";
 
 const schema = z.object({
-  price: z.number({ invalid_type_error: "price field is required" }),
-  name: z.string().min(3, { message: "Name must be atleast 3 characters." }),
-  image: z
-    .string()
-    .min(10, { message: "image url must be atleaast 10 characters" }),
-  gender: z.string().min(4, { message: "Gender must be atleast 4 characters" }),
+  waist: z.number({ invalid_type_error: "userId field is required" }),
+  hips: z.number({ invalid_type_error: "userId field is required" }),
+  skirt_length: z.number({ invalid_type_error: "userId field is required" }),
+  userId: z.number({ invalid_type_error: "user field is required" }),
   description: z
     .string()
     .min(10, { message: "description must be atleast 10 characters" }),
-  categoryId: z.number({ invalid_type_error: "category id field is required" }),
 });
 
 export type formData = z.infer<typeof schema>;
@@ -26,15 +23,17 @@ interface Props {
   onSave: (data: formData) => void;
 }
 
-const CreateProduct = ({ onClose, onSave }: Props) => {
+const AddSkirt = ({ onClose, onSave }: Props) => {
+  const { data } = useUsers();
   const [closing, setClosing] = useState(false);
 
   const handleClose = () => {
     setClosing(true);
     setTimeout(() => {
       onClose();
-    }, 400); // match animation duration
+    }, 400);
   };
+
   const {
     register,
     handleSubmit,
@@ -42,7 +41,6 @@ const CreateProduct = ({ onClose, onSave }: Props) => {
   } = useForm<formData>({
     resolver: zodResolver(schema),
   });
-  const { data } = useCategories();
 
   const handleSave: SubmitHandler<formData> = (data) => {
     onSave(data);
@@ -53,69 +51,53 @@ const CreateProduct = ({ onClose, onSave }: Props) => {
     <div className="popup-overlay ">
       <div className={`popup-content ${closing ? "fade-out" : ""}`}>
         <form onSubmit={handleSubmit(handleSave)}>
-          <h2>Create products</h2>
+          <h2>Create Skirt</h2>
 
           <div className="mb-3">
-            <label htmlFor="name" className="from-label">
-              Name
+            <label htmlFor="waist" className="from-label">
+              Waist
             </label>
             <input
-              {...register("name")}
-              id="name"
-              type="text"
-              className="form-control"
-            />
-            {errors.name && (
-              <p className="text-danger">{errors.name.message}</p>
-            )}
-          </div>
-          <div className="mb-3">
-            <label htmlFor="price" className="from-label">
-              Price
-            </label>
-            <input
-              {...register("price", { valueAsNumber: true })}
-              id="price"
+              {...register("waist", { valueAsNumber: true })}
+              id="waist"
               type="number"
               className="form-control"
             />
-            {errors.price && (
-              <p className="text-danger">{errors.price.message}</p>
+            {errors.waist && (
+              <p className="text-danger">{errors.waist.message}</p>
             )}
           </div>
+
           <div className="mb-3">
-            <label htmlFor="image" className="from-label">
-              Image Url
+            <label htmlFor="hips" className="from-label">
+              Hips
             </label>
             <input
-              {...register("image")}
-              id="image"
-              type="text"
+              {...register("hips", { valueAsNumber: true })}
+              id="hips"
+              type="number"
               className="form-control"
             />
-            {errors.image && (
-              <p className="text-danger">{errors.image.message}</p>
+            {errors.hips && (
+              <p className="text-danger">{errors.hips.message}</p>
             )}
           </div>
+
           <div className="mb-3">
-            <label htmlFor="categoryId" className="from-label">
-              Category Id
+            <label htmlFor="skirt_length" className="from-label">
+              Skirt Length
             </label>
-            <select
-              className="form-select"
-              {...register("categoryId", { valueAsNumber: true })}
-            >
-              <option value="">Select category</option>
-              {data.map((category) => (
-                <option key={category.id} value={category.id}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
-            {errors.categoryId && (
-              <p className="text-danger">{errors.categoryId.message}</p>
+            <input
+              {...register("skirt_length", { valueAsNumber: true })}
+              id="skirt_length"
+              type="number"
+              className="form-control"
+            />
+            {errors.skirt_length && (
+              <p className="text-danger">{errors.skirt_length.message}</p>
             )}
           </div>
+
           <div className="mb-3">
             <label htmlFor="description" className="from-label">
               Description
@@ -130,17 +112,24 @@ const CreateProduct = ({ onClose, onSave }: Props) => {
               <p className="text-danger">{errors.description.message}</p>
             )}
           </div>
+
           <div className="mb-3">
-            <label htmlFor="gender" className="from-label">
-              Gender
+            <label htmlFor="userId" className="from-label">
+              User
             </label>
-            <select className="form-select" {...register("gender")}>
-              <option value="">Select Gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
+            <select
+              className="form-select"
+              {...register("userId", { valueAsNumber: true })}
+            >
+              <option value="">Select category</option>
+              {data.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.username}
+                </option>
+              ))}
             </select>
-            {errors.gender && (
-              <p className="text-danger">{errors.gender.message}</p>
+            {errors.userId && (
+              <p className="text-danger">{errors.userId.message}</p>
             )}
           </div>
 
@@ -168,4 +157,4 @@ const CreateProduct = ({ onClose, onSave }: Props) => {
   );
 };
 
-export default CreateProduct;
+export default AddSkirt;

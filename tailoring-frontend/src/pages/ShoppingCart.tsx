@@ -1,12 +1,45 @@
 import { Table } from "@chakra-ui/react";
 import { useContext } from "react";
 import CartContext from "../context/CartContext";
+import cartService from "../shared/services/cartService";
+import { CartProduct } from "../Reducers/CartReducer";
 
 const CartTable = () => {
   const { carts, dispatch } = useContext(CartContext);
   const totalPrice = carts.reduce((total, product) => {
     return total + product.price * product.quantity;
   }, 0);
+
+  // const handleSave = (carts: CartProduct[]) => {
+  //   console.log(carts);
+  //   cartService.create(carts).then((res) => {
+  //     alert("products saved " + res.status);
+  //   });
+  // };
+
+  const handleSave = (carts: CartProduct[]) => {
+    const userId = parseInt(localStorage.getItem("userId") || "0", 10);
+    if (!userId) return alert("User not logged in");
+
+    const payload = {
+      userId,
+      items: carts.map((product) => ({
+        productId: product.id,
+        quantity: product.quantity,
+      })),
+    };
+
+    console.log("Sending payload:", payload);
+
+    cartService
+      .create(payload)
+      .then((res) => {
+        alert("Products saved! Status: " + res.status);
+      })
+      .catch((err) => {
+        alert("Error saving cart: " + err.message);
+      });
+  };
 
   return (
     <Table variant="simple">
@@ -66,7 +99,12 @@ const CartTable = () => {
       <tfoot>
         <tr>
           <td colSpan={2} style={{ textAlign: "right" }}>
-            <button className="btn btn-outline-primary">checkout</button>
+            <button
+              className="btn btn-outline-primary"
+              onClick={() => handleSave(carts)}
+            >
+              checkout
+            </button>
           </td>
           <td colSpan={2} style={{ textAlign: "right" }}>
             <strong>Total Price</strong>

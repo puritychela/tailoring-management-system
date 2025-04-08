@@ -1,16 +1,23 @@
 import { Button, Input } from "@chakra-ui/react";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { Product } from "../../hooks/useProduct";
-import "../popup.css";
+import "../../popup.css";
+import { skirt } from "../../../hooks/useSkirt";
 interface Props {
-  product: Product;
+  skirt: skirt;
   onClose: () => void;
-  onSave: (formData: Product) => void;
+  onSave: (formData: skirt) => void;
 }
 
-const UpdateProduct = ({ product, onClose, onSave }: Props) => {
-  // const forms = useForm();
-  const [formData, setFormData] = useState<Product>(product);
+const EditSkirt = ({ skirt, onClose, onSave }: Props) => {
+  const [formData, setFormData] = useState<skirt>(skirt);
+  const [closing, setClosing] = useState(false);
+
+  const handleClose = () => {
+    setClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, 400); // match animation duration
+  };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -23,33 +30,35 @@ const UpdateProduct = ({ product, onClose, onSave }: Props) => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     onSave(formData);
+    onClose();
   };
 
   return (
     <div className="popup-overlay ">
-      <div className="popup-content">
+      <div className={`popup-content ${closing ? "fade-out" : ""}`}>
         <form onSubmit={handleSubmit}>
           <h2>update products</h2>
           <div className="mb-3">
             <label htmlFor="title" className="form-label">
-              Title
+              waist
             </label>
             <Input
-              id="name"
-              name="name"
-              value={formData.name}
+              id="waist"
+              name="waist"
+              value={formData.waist}
               onChange={handleChange}
               className="form-control"
             />
           </div>
+
           <div className="mb-3">
-            <label htmlFor="imageUrl" className="form-label">
-              Image Url
+            <label htmlFor="hips" className="form-label">
+              Hips
             </label>
             <Input
-              id="imageUrl"
-              name="imageUrl"
-              value={formData.image}
+              id="hips"
+              name="hips"
+              value={formData.skirt_length}
               onChange={handleChange}
               className="form-control"
             />
@@ -67,25 +76,25 @@ const UpdateProduct = ({ product, onClose, onSave }: Props) => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="location" className="form-label">
-              Price
+            <label htmlFor="skirt_length" className="form-label">
+              skirt_length
             </label>
             <Input
-              id="price"
-              name="price"
-              value={formData.price}
+              id="skirt_length"
+              name="skirt_length"
+              value={formData.skirt_length}
               onChange={handleChange}
               className="form-control"
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="date" className="form-label">
-              Category Id
+            <label htmlFor="userId" className="form-label">
+              user
             </label>
             <Input
-              id="categoryId"
-              name="categoryId"
-              value={formData.categoryId}
+              id="userId"
+              name="userId"
+              value={formData.userId}
               onChange={handleChange}
               className="form-control"
             />
@@ -103,7 +112,7 @@ const UpdateProduct = ({ product, onClose, onSave }: Props) => {
               fontSize="xl"
               colorScheme="blue"
               className="close-button"
-              onClick={() => onClose()}
+              onClick={() => handleClose()}
             >
               close
             </Button>
@@ -114,4 +123,4 @@ const UpdateProduct = ({ product, onClose, onSave }: Props) => {
   );
 };
 
-export default UpdateProduct;
+export default EditSkirt;

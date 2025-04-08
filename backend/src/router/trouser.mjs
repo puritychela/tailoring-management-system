@@ -16,6 +16,7 @@ trousersRouter
 
 trousersRouter
   .route("/trousers/:id")
+  .put(authMiddleware, trousercontroller.updateTrouser)
   .delete(trouserMiddleware, trousercontroller.deleteTrouser);
 
 export default trousersRouter;

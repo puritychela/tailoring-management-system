@@ -13,6 +13,7 @@ skirtRouter
 
 skirtRouter
   .route("/skirts/:id")
+  .put(authMiddleware, skirtController.updateSkirt)
   .delete(skirtMiddleware, skirtController.deleteSkirt);
 
 export default skirtRouter;

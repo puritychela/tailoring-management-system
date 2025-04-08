@@ -1,17 +1,17 @@
 import { Button, Input } from "@chakra-ui/react";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { Product } from "../../hooks/useProduct";
-import "../popup.css";
+import "../../popup.css";
+import { shirt } from "../../../hooks/useShirt";
+
 interface Props {
-  product: Product;
+  shirt: shirt;
   onClose: () => void;
-  onSave: (formData: Product) => void;
+  onSave: (formData: shirt) => void;
 }
 
-const UpdateProduct = ({ product, onClose, onSave }: Props) => {
-  // const forms = useForm();
-  const [formData, setFormData] = useState<Product>(product);
-
+const UpdateProduct = ({ shirt, onClose, onSave }: Props) => {
+  const [formData, setFormData] = useState<shirt>(shirt);
+  const [closing, setClosing] = useState(false);
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData({
@@ -20,40 +20,76 @@ const UpdateProduct = ({ product, onClose, onSave }: Props) => {
     });
   };
 
+  const handleClose = () => {
+    setClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, 400);
+  };
+
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     onSave(formData);
+    handleClose();
   };
 
   return (
-    <div className="popup-overlay ">
-      <div className="popup-content">
+    <div className={`popup-overlay`}>
+      <div className={`popup-content ${closing ? "fade-out" : ""}`}>
         <form onSubmit={handleSubmit}>
           <h2>update products</h2>
           <div className="mb-3">
-            <label htmlFor="title" className="form-label">
-              Title
+            <label htmlFor="sleeve_length" className="form-label">
+              Sleeve Length
             </label>
             <Input
-              id="name"
-              name="name"
-              value={formData.name}
+              id="sleeve_length"
+              name="sleeve_length"
+              value={formData.sleeve_length}
               onChange={handleChange}
               className="form-control"
             />
           </div>
+
           <div className="mb-3">
-            <label htmlFor="imageUrl" className="form-label">
-              Image Url
+            <label htmlFor="collar" className="form-label">
+              Collar
             </label>
             <Input
-              id="imageUrl"
-              name="imageUrl"
-              value={formData.image}
+              id="collar"
+              name="collar"
+              value={formData.collar}
               onChange={handleChange}
               className="form-control"
             />
           </div>
+
+          <div className="mb-3">
+            <label htmlFor="chest" className="form-label">
+              Chest
+            </label>
+            <Input
+              id="chest"
+              name="chest"
+              value={formData.chest}
+              onChange={handleChange}
+              className="form-control"
+            />
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="waist" className="form-label">
+              Waist
+            </label>
+            <Input
+              id="waist"
+              name="waist"
+              value={formData.waist}
+              onChange={handleChange}
+              className="form-control"
+            />
+          </div>
+
           <div className="mb-3">
             <label htmlFor="description" className="form-label">
               Description
@@ -66,26 +102,15 @@ const UpdateProduct = ({ product, onClose, onSave }: Props) => {
               className="form-control"
             />
           </div>
-          <div className="mb-3">
-            <label htmlFor="location" className="form-label">
-              Price
-            </label>
-            <Input
-              id="price"
-              name="price"
-              value={formData.price}
-              onChange={handleChange}
-              className="form-control"
-            />
-          </div>
+
           <div className="mb-3">
             <label htmlFor="date" className="form-label">
-              Category Id
+              User
             </label>
             <Input
-              id="categoryId"
-              name="categoryId"
-              value={formData.categoryId}
+              id="userId"
+              name="userId"
+              value={formData.userId}
               onChange={handleChange}
               className="form-control"
             />
@@ -103,7 +128,7 @@ const UpdateProduct = ({ product, onClose, onSave }: Props) => {
               fontSize="xl"
               colorScheme="blue"
               className="close-button"
-              onClick={() => onClose()}
+              onClick={() => handleClose()}
             >
               close
             </Button>

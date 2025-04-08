@@ -107,11 +107,15 @@ model Cart {
   items   CartItem[]
 }
 
+
 model CartItem {
   id        Int     @id @default(autoincrement())
   cartId    Int
-  cart      Cart    @relation(fields: [cartId], references: [id])
   productId Int
-  product   Product @relation(fields: [productId], references: [id])
   quantity  Int
+
+  cart      Cart    @relation(fields: [cartId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@unique([cartId, productId])
 }

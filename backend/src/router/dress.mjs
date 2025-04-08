@@ -13,6 +13,7 @@ dressesRouter
 
 dressesRouter
   .route("/dresses/:id")
+  .put(authMiddleware, dressController.updateDress)
   .delete(dressMiddleware, authMiddleware, dressController.deleteDress);
 
 export default dressesRouter;
